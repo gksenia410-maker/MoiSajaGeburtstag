@@ -47,6 +47,7 @@
       display: none;
       color: #ffb3b3;
       margin-top: 10px;
+      font-size: 18px;
     }
   </style>
 </head>
@@ -54,11 +55,9 @@
 
   <div class="overlay">
     <h1>Level 1 – Puzzle</h1>
-    <p>Setze das Bild richtig zusammen, um weiterzukommen!</p>
-
+    <p>Setze das Bild richtig zusammen, um Level 2 freizuschalten!</p>
     <div id="puzzle"></div>
-
-    <div id="wrong">Das Puzzle ist noch nicht richtig – versuch es weiter!</div>
+    <div id="wrong">Das Puzzle ist noch nicht richtig!</div>
   </div>
 
   <script>
@@ -84,8 +83,6 @@
 
     // Mischen
     pieces.sort(() => Math.random() - 0.5);
-
-    // Anzeigen
     pieces.forEach(p => puzzle.appendChild(p));
 
     let first = null;
@@ -115,8 +112,8 @@
     });
 
     function checkWin() {
-      const allCorrect = [...puzzle.children].every((piece, index) => {
-        return piece.dataset.correct == index;
+      const allCorrect = [...puzzle.children].every(piece => {
+        return piece.style.backgroundPosition === positions[piece.dataset.correct];
       });
 
       if (allCorrect) {
