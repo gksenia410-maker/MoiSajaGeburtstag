@@ -49,14 +49,29 @@
       margin-top: 10px;
       font-size: 18px;
     }
+
+    #checkBtn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 18px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      background-color: #4da6ff;
+      color: white;
+    }
   </style>
 </head>
 <body>
 
   <div class="overlay">
     <h1>Level 1 – Puzzle</h1>
-    <p>Setze das Bild richtig zusammen, um Level 2 freizuschalten!</p>
+    <p>Setze das Bild richtig zusammen und drücke dann auf „Fertig“!</p>
+
     <div id="puzzle"></div>
+
+    <button id="checkBtn">Fertig</button>
+
     <div id="wrong">Das Puzzle ist noch nicht richtig!</div>
   </div>
 
@@ -87,41 +102,36 @@
 
     let first = null;
 
+    // Klick-Logik zum Tauschen
     pieces.forEach(piece => {
       piece.addEventListener("click", () => {
         if (!first) {
           first = piece;
           piece.style.outline = "2px solid gold";
         } else {
-          // Positionen tauschen (nur visuell)
           const tempPos = first.style.backgroundPosition;
           first.style.backgroundPosition = piece.style.backgroundPosition;
           piece.style.backgroundPosition = tempPos;
 
           first.style.outline = "none";
           first = null;
-
-          checkWin();
         }
       });
     });
 
-    function checkWin() {
+    // Fertig-Button prüft das Puzzle
+    document.getElementById("checkBtn").addEventListener("click", () => {
       const allCorrect = [...puzzle.children].every((piece, index) => {
         return piece.style.backgroundPosition === positions[index];
       });
 
       if (allCorrect) {
-        // Kurze Animation vor dem Wechsel
-        document.body.style.transition = "opacity 1s";
-        document.body.style.opacity = "0";
-        setTimeout(() => {
-          window.location.href = "level2.html";
-        }, 1000);
+        window.location.href = "level2.html";
+      } else {
+        document.getElementById("wrong").style.display = "block";
       }
-    }
+    });
   </script>
 
 </body>
 </html>
-
