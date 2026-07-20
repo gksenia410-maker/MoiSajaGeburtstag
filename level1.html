@@ -61,68 +61,62 @@
   </div>
 
   <script>
-    const puzzle = document.getElementById("puzzle");
+  const puzzle = document.getElementById("puzzle");
 
-    // Positionen für 25 Teile (5x5)
-    const positions = [];
-    for (let y = 0; y < 5; y++) {
-      for (let x = 0; x < 5; x++) {
-        positions.push(`${x * 100}px ${y * 100}px`);
+  // Positionen für 25 Teile (5x5)
+  const positions = [];
+  for (let y = 0; y < 5; y++) {
+    for (let x = 0; x < 5; x++) {
+      positions.push(`${x * 100}px ${y * 100}px`);
+    }
+  }
+
+  // Teile erstellen
+  let pieces = [];
+  for (let i = 0; i < 25; i++) {
+    const div = document.createElement("div");
+    div.classList.add("piece");
+    div.style.backgroundPosition = positions[i];
+    div.dataset.correct = i;
+    pieces.push(div);
+  }
+
+  // Mischen
+  pieces.sort(() => Math.random() - 0.5);
+  pieces.forEach(p => puzzle.appendChild(p));
+
+  let first = null;
+
+  pieces.forEach(piece => {
+    piece.addEventListener("click", () => {
+      if (!first) {
+        first = piece;
+        piece.style.outline = "2px solid gold";
+      } else {
+        // Positionen tauschen (nur visuell, nicht dataset.correct)
+        const tempPos = first.style.backgroundPosition;
+        first.style.backgroundPosition = piece.style.backgroundPosition;
+        piece.style.backgroundPosition = tempPos;
+
+        first.style.outline = "none";
+        first = null;
+
+        checkWin();
       }
-    }
+    });
+  });
 
-    // Teile erstellen
-    let pieces = [];
-    for (let i = 0; i < 25; i++) {
-      const div = document.createElement("div");
-      div.classList.add("piece");
-      div.style.backgroundPosition = positions[i];
-      div.dataset.correct = i;
-      pieces.push(div);
-    }
-
-    // Mischen
-    pieces.sort(() => Math.random() - 0.5);
-    pieces.forEach(p => puzzle.appendChild(p));
-
-    let first = null;
-
-    pieces.forEach(piece => {
-      piece.addEventListener("click", () => {
-        if (!first) {
-          first = piece;
-          piece.style.outline = "2px solid gold";
-        } else {
-          // Positionen tauschen
-          const tempPos = first.style.backgroundPosition;
-          const tempCorrect = first.dataset.correct;
-
-          first.style.backgroundPosition = piece.style.backgroundPosition;
-          first.dataset.correct = piece.dataset.correct;
-
-          piece.style.backgroundPosition = tempPos;
-          piece.dataset.correct = tempCorrect;
-
-          first.style.outline = "none";
-          first = null;
-
-          checkWin();
-        }
-      });
+  function checkWin() {
+    const allCorrect = [...puzzle.children].every((piece, index) => {
+      return piece.style.backgroundPosition === positions[index];
     });
 
-    function checkWin() {
-      const allCorrect = [...puzzle.children].every(piece => {
-        return piece.style.backgroundPosition === positions[piece.dataset.correct];
-      });
-
-      if (allCorrect) {
-        window.location.href = "level2.html";
-      } else {
-        document.getElementById("wrong").style.display = "block";
-      }
+    if (allCorrect) {
+      window.location.href = "level2.html";
     }
-  </script>
+  }
+</script>
+
 
 </body>
 </html>
