@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Level 1 – Puzzle</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: #ffffff;
+      background: url("Meer.png") no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .overlay {
+      background: rgba(0, 0, 0, 0.55);
+      padding: 30px 40px;
+      border-radius: 16px;
+      max-width: 700px;
+      text-align: center;
+    }
+
+    #puzzle {
+      width: 300px;
+      height: 300px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      gap: 2px;
+      margin: 20px auto;
+    }
+
+    .piece {
+      width: 100px;
+      height: 100px;
+      background-image: url("Level1.jpeg");
+      background-size: 300px 300px;
+      cursor: pointer;
+      border: 1px solid #ffffff55;
+    }
+
+    #wrong {
+      display: none;
+      color: #ffb3b3;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="overlay">
+    <h1>Level 1 – Puzzle</h1>
+    <p>Setze das Bild richtig zusammen, um weiterzukommen!</p>
+
+    <div id="puzzle"></div>
+
+    <div id="wrong">Das Puzzle ist noch nicht richtig – versuch es weiter!</div>
+  </div>
+
+  <script>
+    const puzzle = document.getElementById("puzzle");
+
+    // Positionen der 9 Teile
+    const positions = [
+      "0px 0px", "100px 0px", "200px 0px",
+      "0px 100px", "100px 100px", "200px 100px",
+      "0px 200px", "100px 200px", "200px 200px"
+    ];
+
+    // Teile erstellen
+    let pieces = [];
+    for (let i = 0; i < 9; i++) {
+      const div = document.createElement("div");
+      div.classList.add("piece");
+      div.style.backgroundPosition = positions[i];
+      div.dataset.correct = i;
+      pieces.push(div);
+    }
+
+    // Mischen
+    pieces.sort(() => Math.random() - 0.5);
+
+    // Anzeigen
+    pieces.forEach(p => puzzle.appendChild(p));
+
+    let first = null;
+
+    pieces.forEach(piece => {
+      piece.addEventListener("click", () => {
+        if (!first) {
+          first = piece;
+          piece.style.outline = "2px solid gold";
+        } else {
+          // Positionen tauschen
+          const tempPos = first.style.backgroundPosition;
+          const tempCorrect = first.dataset.correct;
+
+          first.style.backgroundPosition = piece.style.backgroundPosition;
+          first.dataset.correct = piece.dataset.correct;
+
+          piece.style.backgroundPosition = tempPos;
+          piece.dataset.correct = tempCorrect;
+
+          first.style.outline = "none";
+          first = null;
+
+          checkWin();
+        }
+      });
+    });
+
+    function checkWin() {
+      const allCorrect = [...puzzle.children].every((piece, index) => {
+        return piece.dataset.correct == index;
+      });
+
+      if (allCorrect) {
+        window.location.href = "level2.html";
+      } else {
+        document.getElementById("wrong").style.display = "block";
+      }
+    }
+  </script>
+
+</body>
+</html>
