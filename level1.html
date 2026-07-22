@@ -123,9 +123,8 @@
     // Fertig-Button prüft das Puzzle
     document.getElementById("checkBtn").addEventListener("click", () => {
       const allCorrect = [...puzzle.children].every(piece => {
-        const pos = piece.style.backgroundPosition.match(/(\d+)/g);
-        const x = Number(pos[0]);
-        const y = Number(pos[1]);
+        const computed = getComputedStyle(piece).backgroundPosition;
+        const [x, y] = computed.match(/(\d+)/g).map(Number);
         return x === Number(piece.dataset.correctX) && y === Number(piece.dataset.correctY);
       });
 
