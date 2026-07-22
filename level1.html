@@ -82,7 +82,7 @@
     const positions = [];
     for (let y = 0; y < 5; y++) {
       for (let x = 0; x < 5; x++) {
-        positions.push(`${x * 100}px ${y * 100}px`);
+        positions.push({ x: x * 100, y: y * 100 });
       }
     }
 
@@ -91,8 +91,9 @@
     for (let i = 0; i < 25; i++) {
       const div = document.createElement("div");
       div.classList.add("piece");
-      div.style.backgroundPosition = positions[i];
-      div.dataset.correct = positions[i]; // richtige Position speichern
+      div.style.backgroundPosition = `${positions[i].x}px ${positions[i].y}px`;
+      div.dataset.correctX = positions[i].x;
+      div.dataset.correctY = positions[i].y;
       pieces.push(div);
     }
 
@@ -122,7 +123,11 @@
     // Fertig-Button prüft das Puzzle
     document.getElementById("checkBtn").addEventListener("click", () => {
       const allCorrect = [...puzzle.children].every(piece => {
-        return piece.style.backgroundPosition === piece.dataset.correct;
+        const [x, y] = piece.style.backgroundPosition
+          .replace("px", "")
+          .split(" ")
+          .map(Number);
+        return x === Number(piece.dataset.correctX) && y === Number(piece.dataset.correctY);
       });
 
       if (allCorrect) {
