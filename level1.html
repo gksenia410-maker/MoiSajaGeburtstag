@@ -76,9 +76,65 @@
   </div>
 
   <script>
-  alert("JavaScript funktioniert!");
-  </script>
+    const puzzle = document.getElementById("puzzle");
 
+    // Positionen für 25 Teile (5x5)
+    const positions = [];
+    for (let y = 0; y < 5; y++) {
+      for (let x = 0; x < 5; x++) {
+        positions.push({ x: x * 100, y: y * 100 });
+      }
+    }
+
+    // Teile erstellen
+    let pieces = [];
+    for (let i = 0; i < 25; i++) {
+      const div = document.createElement("div");
+      div.classList.add("piece");
+      div.style.backgroundPosition = `${positions[i].x}px ${positions[i].y}px`;
+      div.dataset.correctX = positions[i].x;
+      div.dataset.correctY = positions[i].y;
+      pieces.push(div);
+    }
+
+    // Mischen
+    pieces.sort(() => Math.random() - 0.5);
+    pieces.forEach(p => puzzle.appendChild(p));
+
+    let first = null;
+
+    // Klick-Logik zum Tauschen
+    pieces.forEach(piece => {
+      piece.addEventListener("click", () => {
+        if (!first) {
+          first = piece;
+          piece.style.outline = "2px solid gold";
+        } else {
+          const tempPos = first.style.backgroundPosition;
+          first.style.backgroundPosition = piece.style.backgroundPosition;
+          piece.style.backgroundPosition = tempPos;
+
+          first.style.outline = "none";
+          first = null;
+        }
+      });
+    });
+
+    // Fertig-Button prüft das Puzzle
+    document.getElementById("checkBtn").addEventListener("click", () => {
+      const allCorrect = [...puzzle.children].every(piece => {
+        const computed = getComputedStyle(piece).backgroundPosition;
+        const [x, y] = computed.match(/(\d+)/g).map(Number);
+        return x === Number(piece.dataset.correctX) && y === Number(piece.dataset.correctY);
+      });
+
+      if (allCorrect) {
+        window.location.href = "level2.html";
+      } else {
+        document.getElementById("wrong").style.display = "block";
+      }
+    });
+  </script>
 
 </body>
 </html>
