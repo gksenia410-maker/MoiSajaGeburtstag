@@ -51,4 +51,113 @@
     }
 
     #checkBtn {
-      margin
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 18px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      background-color: #4da6ff;
+      color: white;
+    }
+
+    #codeInput {
+      margin-top: 20px;
+      padding: 10px;
+      font-size: 18px;
+      border-radius: 10px;
+      border: none;
+      width: 200px;
+      display: none;
+    }
+
+    #submitCode {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 18px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      background-color: #4da6ff;
+      color: white;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="overlay">
+    <h1>Level 1 – Puzzle</h1>
+    <p>Setze das Bild richtig zusammen und drücke dann auf „Fertig“!</p>
+
+    <div id="puzzle"></div>
+
+    <button id="checkBtn">Fertig</button>
+
+    <input id="codeInput" placeholder="Codewort eingeben">
+    <button id="submitCode">Weiter</button>
+
+    <div id="wrong">Das Codewort ist falsch!</div>
+  </div>
+
+  <script>
+    const puzzle = document.getElementById("puzzle");
+
+    // Puzzle-Teile erzeugen (funktioniert wie vorher)
+    const positions = [];
+    for (let y = 0; y < 5; y++) {
+      for (let x = 0; x < 5; x++) {
+        positions.push(`${x * 100}px ${y * 100}px`);
+      }
+    }
+
+    let pieces = [];
+    for (let i = 0; i < 25; i++) {
+      const div = document.createElement("div");
+      div.classList.add("piece");
+      div.style.backgroundPosition = positions[i];
+      pieces.push(div);
+    }
+
+    pieces.sort(() => Math.random() - 0.5);
+    pieces.forEach(p => puzzle.appendChild(p));
+
+    let first = null;
+    [...puzzle.children].forEach(piece => {
+      piece.addEventListener("click", () => {
+        if (!first) {
+          first = piece;
+          piece.style.outline = "2px solid gold";
+        } else {
+          const tempPos = first.style.backgroundPosition;
+          first.style.backgroundPosition = piece.style.backgroundPosition;
+          piece.style.backgroundPosition = tempPos;
+
+          first.style.outline = "none";
+          first = null;
+        }
+      });
+    });
+
+    // Codewort-System
+    const checkBtn = document.getElementById("checkBtn");
+    const codeInput = document.getElementById("codeInput");
+    const submitCode = document.getElementById("submitCode");
+    const wrong = document.getElementById("wrong");
+
+    checkBtn.addEventListener("click", () => {
+      codeInput.style.display = "block";
+      submitCode.style.display = "block";
+    });
+
+    submitCode.addEventListener("click", () => {
+      if (codeInput.value.trim().toLowerCase() === "nordsee") {
+        window.location.href = "level2.html";
+      } else {
+        wrong.style.display = "block";
+      }
+    });
+  </script>
+
+</body>
+</html>
