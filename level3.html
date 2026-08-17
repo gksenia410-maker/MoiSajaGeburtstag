@@ -122,4 +122,18 @@
             document.getElementById("wrong").style.display = "block";
 
             setTimeout(() => {
-              first
+              first.classList.add("hidden");
+              second.classList.add("hidden");
+              first = null;
+              second = null;
+              lock = false;
+              document.getElementById("wrong").style.display = "none";
+            }, 800);
+          }
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
