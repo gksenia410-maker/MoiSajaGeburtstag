@@ -1,7 +1,119 @@
 <!DOCTYPE html>
-<html>
-  <body>
-    <h1>Level 3 Test</h1>
-    <p>Wenn du das siehst, funktioniert level3.html.</p>
-  </body>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Level 3 – Memory</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: #ffffff;
+      background: #004b7a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .overlay {
+      background: rgba(0, 0, 0, 0.55);
+      padding: 30px 40px;
+      border-radius: 16px;
+      text-align: center;
+    }
+
+    #memory {
+      display: grid;
+      grid-template-columns: repeat(4, 80px);
+      grid-gap: 10px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .card {
+      width: 80px;
+      height: 80px;
+      background-color: #4da6ff;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 32px;
+      color: transparent;
+      user-select: none;
+    }
+
+    .card.show {
+      color: #000;
+      background-color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="overlay">
+    <h1>Level 3 – Memory</h1>
+    <p>Finde alle Paare.</p>
+
+    <div id="memory"></div>
+  </div>
+
+  <script>
+    const symbols = ["🌊", "🐚"];
+    let cards = [...symbols, ...symbols]; // 2 Paare
+    cards.sort(() => Math.random() - 0.5);
+
+    const memory = document.getElementById("memory");
+
+    cards.forEach(symbol => {
+      const div = document.createElement("div");
+      div.classList.add("card");
+      div.dataset.symbol = symbol;
+      div.textContent = symbol;
+      memory.appendChild(div);
+    });
+
+    let first = null;
+    let second = null;
+    let lock = false;
+    let found = 0;
+
+    document.querySelectorAll(".card").forEach(card => {
+      card.addEventListener("click", () => {
+        if (lock || card.classList.contains("show")) return;
+
+        card.classList.add("show");
+
+        if (!first) {
+          first = card;
+        } else {
+          second = card;
+          lock = true;
+
+          if (first.dataset.symbol === second.dataset.symbol) {
+            found++;
+            first = null;
+            second = null;
+            lock = false;
+
+            if (found === symbols.length) {
+              alert("Geschafft! Weiter zu Level 4.");
+              // window.location.href = "level4.html";
+            }
+          } else {
+            setTimeout(() => {
+              first.classList.remove("show");
+              second.classList.remove("show");
+              first = null;
+              second = null;
+              lock = false;
+            }, 800);
+          }
+        }
+      });
+    });
+  </script>
+
+</body>
 </html>
