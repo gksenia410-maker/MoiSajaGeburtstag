@@ -26,7 +26,7 @@
 
     #memory {
       display: grid;
-      grid-template-columns: repeat(4, 100px);
+      grid-template-columns: repeat(5, 100px);
       grid-gap: 15px;
       justify-content: center;
       margin-top: 20px;
@@ -35,20 +35,21 @@
     .card {
       width: 100px;
       height: 100px;
-      background-color: #ffffff;
+      background-color: #4da6ff;
       border-radius: 10px;
       cursor: pointer;
       display: flex;
       justify-content: center;
       align-items: center;
       font-size: 40px;
-      color: #333;
+      color: transparent;
       user-select: none;
+      transition: background-color 0.3s;
     }
 
-    .hidden {
-      background-color: #4da6ff;
-      color: transparent;
+    .card.show {
+      background-color: #ffffff;
+      color: #000;
     }
 
     #wrong {
@@ -71,9 +72,9 @@
   </div>
 
   <script>
-    // Symbole für Memory
-    const symbols = ["🌊", "🐚", "⭐", "⛵"];
-    let cards = [...symbols, ...symbols]; // 4 Paare
+    // 5 Paare
+    const symbols = ["🌊", "🐚", "⭐", "⛵", "🐠"];
+    let cards = [...symbols, ...symbols]; // 10 Karten
 
     // Mischen
     cards.sort(() => Math.random() - 0.5);
@@ -81,12 +82,11 @@
     const memory = document.getElementById("memory");
 
     // Karten erzeugen
-    cards.forEach((symbol, index) => {
+    cards.forEach(symbol => {
       const div = document.createElement("div");
-      div.classList.add("card", "hidden");
+      div.classList.add("card");
       div.dataset.symbol = symbol;
-      div.dataset.index = index;
-      div.innerText = symbol;
+      div.textContent = symbol;
       memory.appendChild(div);
     });
 
@@ -97,9 +97,9 @@
 
     document.querySelectorAll(".card").forEach(card => {
       card.addEventListener("click", () => {
-        if (lock || !card.classList.contains("hidden")) return;
+        if (lock || card.classList.contains("show")) return;
 
-        card.classList.remove("hidden");
+        card.classList.add("show");
 
         if (!first) {
           first = card;
@@ -108,7 +108,6 @@
           lock = true;
 
           if (first.dataset.symbol === second.dataset.symbol) {
-            // Paar gefunden
             found++;
             first = null;
             second = null;
@@ -118,12 +117,11 @@
               window.location.href = "level4.html";
             }
           } else {
-            // Falsches Paar
             document.getElementById("wrong").style.display = "block";
 
             setTimeout(() => {
-              first.classList.add("hidden");
-              second.classList.add("hidden");
+              first.classList.remove("show");
+              second.classList.remove("show");
               first = null;
               second = null;
               lock = false;
