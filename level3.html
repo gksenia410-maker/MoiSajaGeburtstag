@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Level 3 – Memory-game</title>
+  <title>Level 3 – Memory</title>
   <style>
     body {
       margin: 0;
@@ -20,7 +20,7 @@
       background: rgba(0, 0, 0, 0.55);
       padding: 30px 40px;
       border-radius: 16px;
-      max-width: 700px;
+      max-width: 900px;
       text-align: center;
     }
 
@@ -72,9 +72,13 @@
   </div>
 
   <script>
-    // 5 Paare
-    const symbols = ["🌊", "🐚", "⭐", "⛵", "🐠"];
-    let cards = [...symbols, ...symbols]; // 10 Karten
+    // 10 Paare = 20 Karten
+    const symbols = [
+      "🌊", "🐚", "⭐", "⛵", "🐠",
+      "🪸", "🐬", "🦀", "🐳", "⚓"
+    ];
+
+    let cards = [...symbols, ...symbols]; // 20 Karten
 
     // Mischen
     cards.sort(() => Math.random() - 0.5);
