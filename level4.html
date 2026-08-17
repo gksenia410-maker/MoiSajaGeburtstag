@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Level 4 – Passwort</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: #ffffff;
+      background: url("Meer.png") no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .overlay {
+      background: rgba(0, 0, 0, 0.55);
+      padding: 30px 40px;
+      border-radius: 16px;
+      max-width: 700px;
+      text-align: center;
+    }
+
+    input {
+      margin-top: 20px;
+      padding: 10px;
+      font-size: 18px;
+      border-radius: 10px;
+      border: none;
+      width: 250px;
+      text-align: center;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 18px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      background-color: #4da6ff;
+      color: white;
+    }
+
+    #wrong {
+      display: none;
+      color: #ffb3b3;
+      margin-top: 10px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="overlay">
+    <h1>Level 4 – Passwort</h1>
+    <p>Du hast das Memory geschafft!  
+       Um weiterzukommen, brauchst du das richtige Passwort.</p>
+
+    <p><b>Hinweis:</b>  
+       Es ist etwas, das du liebst… und das mit dem Meer zu tun hat.</p>
+
+    <input id="pw" placeholder="Passwort eingeben">
+    <button id="check">Weiter</button>
+
+    <div id="wrong">Falsches Passwort!</div>
+  </div>
+
+  <script>
+    const correct = "strand"; // Passwort hier ändern
+
+    document.getElementById("check").addEventListener("click", () => {
+      const pw = document.getElementById("pw").value.trim().toLowerCase();
+
+      if (pw === correct) {
+        window.location.href = "level5.html";
+      } else {
+        document.getElementById("wrong").style.display = "block";
+      }
+    });
+  </script>
+
+</body>
+</html>
