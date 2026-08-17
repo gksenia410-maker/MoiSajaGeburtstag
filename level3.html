@@ -8,7 +8,8 @@
       margin: 0;
       font-family: "Segoe UI", Arial, sans-serif;
       color: #ffffff;
-      background: #004b7a;
+      background: url("Meer.png") no-repeat center center fixed;
+      background-size: cover;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -19,34 +20,42 @@
       background: rgba(0, 0, 0, 0.55);
       padding: 30px 40px;
       border-radius: 16px;
+      max-width: 700px;
       text-align: center;
     }
 
     #memory {
       display: grid;
-      grid-template-columns: repeat(4, 80px);
-      grid-gap: 10px;
+      grid-template-columns: repeat(4, 100px);
+      grid-gap: 15px;
       justify-content: center;
       margin-top: 20px;
     }
 
     .card {
-      width: 80px;
-      height: 80px;
-      background-color: #4da6ff;
+      width: 100px;
+      height: 100px;
+      background-color: #ffffff;
       border-radius: 10px;
       cursor: pointer;
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 32px;
-      color: transparent;
+      font-size: 40px;
+      color: #333;
       user-select: none;
     }
 
-    .card.show {
-      color: #000;
-      background-color: #ffffff;
+    .hidden {
+      background-color: #4da6ff;
+      color: transparent;
+    }
+
+    #wrong {
+      display: none;
+      color: #ffb3b3;
+      margin-top: 10px;
+      font-size: 18px;
     }
   </style>
 </head>
@@ -54,23 +63,30 @@
 
   <div class="overlay">
     <h1>Level 3 – Memory</h1>
-    <p>Finde alle Paare.</p>
+    <p>Finde alle Paare, um weiterzukommen!</p>
 
     <div id="memory"></div>
+
+    <div id="wrong">Nicht das richtige Paar!</div>
   </div>
 
   <script>
-    const symbols = ["🌊", "🐚"];
-    let cards = [...symbols, ...symbols]; // 2 Paare
+    // Symbole für Memory
+    const symbols = ["🌊", "🐚", "⭐", "⛵"];
+    let cards = [...symbols, ...symbols]; // 4 Paare
+
+    // Mischen
     cards.sort(() => Math.random() - 0.5);
 
     const memory = document.getElementById("memory");
 
-    cards.forEach(symbol => {
+    // Karten erzeugen
+    cards.forEach((symbol, index) => {
       const div = document.createElement("div");
-      div.classList.add("card");
+      div.classList.add("card", "hidden");
       div.dataset.symbol = symbol;
-      div.textContent = symbol;
+      div.dataset.index = index;
+      div.innerText = symbol;
       memory.appendChild(div);
     });
 
@@ -81,9 +97,9 @@
 
     document.querySelectorAll(".card").forEach(card => {
       card.addEventListener("click", () => {
-        if (lock || card.classList.contains("show")) return;
+        if (lock || !card.classList.contains("hidden")) return;
 
-        card.classList.add("show");
+        card.classList.remove("hidden");
 
         if (!first) {
           first = card;
@@ -92,22 +108,26 @@
           lock = true;
 
           if (first.dataset.symbol === second.dataset.symbol) {
+            // Paar gefunden
             found++;
             first = null;
             second = null;
             lock = false;
 
             if (found === symbols.length) {
-              alert("Geschafft! Weiter zu Level 4.");
-              // window.location.href = "level4.html";
+              window.location.href = "level4.html";
             }
           } else {
+            // Falsches Paar
+            document.getElementById("wrong").style.display = "block";
+
             setTimeout(() => {
-              first.classList.remove("show");
-              second.classList.remove("show");
+              first.classList.add("hidden");
+              second.classList.add("hidden");
               first = null;
               second = null;
               lock = false;
+              document.getElementById("wrong").style.display = "none";
             }, 800);
           }
         }
