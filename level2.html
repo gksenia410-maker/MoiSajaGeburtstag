@@ -1,31 +1,132 @@
-<script>
-  const quizData = [
-    {
-      question: "Wie viel Prozent der Erde sind von Ozeanen bedeckt?",
-      answers: ["50%", "71%", "83%", "92%"],
-      correct: 1
-    },
-    {
-      question: "Was ist die durchschnittliche Temperatur in tropischen Meeren?",
-      answers: ["18–20°C", "26–28°C", "30–33°C", "10–15°C"],
-      correct: 1
-    },
-    {
-      question: "Warum ist Sand an manchen Stränden weiß?",
-      answers: ["Wegen Muschelresten", "Wegen Kalkstein", "Wegen Korallenbruchstücken", "Alle Antworten sind richtig"],
-      correct: 3
-    },
-    {
-      question: "Welches Land hat die längste Mittelmeerküste?",
-      answers: ["Spanien", "Italien", "Türkei", "Frankreich"],
-      correct: 2
-    },
-    {
-      question: "Warum ist das Mittelmeer salziger als viele andere Meere?",
-      answers: ["Wegen Vulkangestein", "Wegen Flusszuflüssen", "Weil es wenig Niederschlag und hohe Verdunstung hat", "Wegen warmen Strömungen"],
-      correct: 2
-    },
-    {
-      question: "Welche Meeresschildkröte legt im Mittelmeer ihre Eier an den Stränden ab?",
-      answers: ["Grüne Meeresschildkröte", "Lederschildkröte", "Unechte Karettschildkröte", "Galápagos-Schildkröte"],
-      correct: 2
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Level 2 – Meer‑Quiz</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: #ffffff;
+      background: url("Meer.png") no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .overlay {
+      background: rgba(0, 0, 0, 0.55);
+      padding: 30px 40px;
+      border-radius: 16px;
+      max-width: 700px;
+      text-align: center;
+    }
+
+    .question {
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+
+    .answers button {
+      display: block;
+      width: 100%;
+      margin: 8px 0;
+      padding: 10px;
+      font-size: 18px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      background-color: #4da6ff;
+      color: white;
+      transition: background-color 0.3s;
+    }
+
+    .answers button:hover {
+      background-color: #66b3ff;
+    }
+
+    #wrong {
+      display: none;
+      color: #ffb3b3;
+      margin-top: 10px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="overlay">
+    <h1>Level 2 – Meer‑Quiz</h1>
+    <div id="quiz"></div>
+    <div id="wrong">Falsch! Versuch es nochmal.</div>
+  </div>
+
+  <script>
+    const quizData = [
+      {
+        question: "Wie viel Prozent der Erde sind von Ozeanen bedeckt?",
+        answers: ["50%", "71%", "83%", "92%"],
+        correct: 1
+      },
+      {
+        question: "Was ist die durchschnittliche Temperatur in tropischen Meeren?",
+        answers: ["18–20°C", "26–28°C", "30–33°C", "10–15°C"],
+        correct: 1
+      },
+      {
+        question: "Warum ist Sand an manchen Stränden weiß?",
+        answers: ["Wegen Muschelresten", "Wegen Kalkstein", "Wegen Korallenbruchstücken", "Alle Antworten sind richtig"],
+        correct: 3
+      },
+      {
+        question: "Welches Land hat die längste Mittelmeerküste?",
+        answers: ["Spanien", "Italien", "Türkei", "Frankreich"],
+        correct: 2
+      },
+      {
+        question: "Warum ist das Mittelmeer salziger als viele andere Meere?",
+        answers: ["Wegen Vulkangestein", "Wegen Flusszuflüssen", "Weil es wenig Niederschlag und hohe Verdunstung hat", "Wegen warmen Strömungen"],
+        correct: 2
+      },
+      {
+        question: "Welche Meeresschildkröte legt im Mittelmeer ihre Eier an den Stränden ab?",
+        answers: ["Grüne Meeresschildkröte", "Lederschildkröte", "Unechte Karettschildkröte", "Galápagos‑Schildkröte"],
+        correct: 2
+      }
+    ];
+
+    let current = 0;
+
+    function loadQuestion() {
+      const q = quizData[current];
+      const quiz = document.getElementById("quiz");
+      quiz.innerHTML = `
+        <div class="question">${q.question}</div>
+        <div class="answers">
+          ${q.answers.map((a, i) => `<button onclick="checkAnswer(${i})">${a}</button>`).join("")}
+        </div>
+      `;
+    }
+
+    function checkAnswer(i) {
+      if (i === quizData[current].correct) {
+        current++;
+        document.getElementById("wrong").style.display = "none";
+
+        if (current >= quizData.length) {
+          window.location.href = "level3.html";
+        } else {
+          loadQuestion();
+        }
+      } else {
+        document.getElementById("wrong").style.display = "block";
+      }
+    }
+
+    loadQuestion();
+  </script>
+
+</body>
+</html>
