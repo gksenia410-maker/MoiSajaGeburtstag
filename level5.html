@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Level 5 – Die Flaschenpost</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: #ffffff;
+      background: url("Meer.png") no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .overlay {
+      background: rgba(0, 0, 0, 0.55);
+      padding: 30px 40px;
+      border-radius: 16px;
+      max-width: 700px;
+      text-align: center;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 18px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      background-color: #4da6ff;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="overlay">
+    <h1>Level 5 – Die Flaschenpost</h1>
+
+    <p id="story">
+      Du gehst am Strand entlang.  
+      Die Sonne steht tief, das Meer rauscht leise.  
+      Plötzlich siehst du etwas im Sand glitzern…  
+      Eine Flaschenpost.
+    </p>
+
+    <button onclick="choose('open')">Flaschenpost öffnen</button>
+    <button onclick="choose('leave')">Lieber liegen lassen</button>
+  </div>
+
+  <script>
+    function choose(option) {
+      const story = document.getElementById("story");
+
+      if (option === "open") {
+        story.innerHTML = `
+          Du öffnest die Flasche vorsichtig.  
+          Darin liegt ein kleiner Zettel.  
+          Darauf steht nur ein einziges Wort…<br><br>
+          <b>„Weiter“</b><br><br>
+          Du spürst, dass du der Spur folgen musst.
+        `;
+        setTimeout(() => {
+          window.location.href = "level6.html";
+        }, 3000);
+      }
+
+      if (option === "leave") {
+        story.innerHTML = `
+          Du gehst weiter… aber irgendetwas fühlt sich falsch an.  
+          Die Flaschenpost ruft dich zurück.<br><br>
+          <i>Versuch es nochmal.</i>
+        `;
+      }
+    }
+  </script>
+
+</body>
+</html>
