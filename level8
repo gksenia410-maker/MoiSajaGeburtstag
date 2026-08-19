@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Level 8 – Wimmelbild</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: #ffffff;
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      position: relative;
+      width: 90vw;
+      max-width: 900px;
+    }
+
+    img {
+      width: 100%;
+      border-radius: 12px;
+    }
+
+    /* Klickbereich für die Muschel */
+    .target {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      cursor: pointer;
+      /* DEBUG: sichtbar machen → später entfernen
+      background: rgba(255,0,0,0.3);
+      */
+      left: 50%;   /* Position anpassen */
+      top: 50%;    /* Position anpassen */
+    }
+
+    #wrong {
+      display: none;
+      color: #ffb3b3;
+      font-size: 22px;
+      text-align: center;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <img src="Start.png" alt="Wimmelbild">
+
+    <!-- Klickbereich für die Muschel -->
+    <div class="target" onclick="correct()"></div>
+  </div>
+
+  <div id="wrong">Das war nicht die Muschel!</div>
+
+  <script>
+    function correct() {
+      window.location.href = "level9.html";
+    }
+
+    // Klick überall sonst → Fehler
+    document.body.addEventListener("click", function(e) {
+      if (!e.target.classList.contains("target")) {
+        const wrong = document.getElementById("wrong");
+        wrong.style.display = "block";
+        setTimeout(() => wrong.style.display = "none", 1200);
+      }
+    });
+  </script>
+
+</body>
+</html>
