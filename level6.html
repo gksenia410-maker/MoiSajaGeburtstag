@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Level 6 – Finde den Fehler</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: #ffffff;
+      background: url("Meer.png") no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .overlay {
+      background: rgba(0, 0, 0, 0.55);
+      padding: 30px 40px;
+      border-radius: 16px;
+      max-width: 700px;
+      text-align: center;
+    }
+
+    .option {
+      background-color: #4da6ff;
+      padding: 12px 20px;
+      margin: 10px 0;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 20px;
+      transition: background-color 0.3s;
+    }
+
+    .option:hover {
+      background-color: #66b3ff;
+    }
+
+    #wrong {
+      display: none;
+      color: #ffb3b3;
+      margin-top: 10px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="overlay">
+    <h1>Level 6 – Finde den Fehler</h1>
+
+    <p>In einem der folgenden Sätze steckt ein Fehler.  
+       Finde ihn, um weiterzukommen!</p>
+
+    <div class="option" onclick="check(1)">Das Meer ist blau.</div>
+    <div class="option" onclick="check(2)">Der Sand ist warm.</div>
+    <div class="option" onclick="check(3)">Die Sonne geht im Norden auf.</div>
+    <div class="option" onclick="check(4)">Muscheln liegen am Strand.</div>
+
+    <div id="wrong">Das war nicht der Fehler!</div>
+  </div>
+
+  <script>
+    function check(num) {
+      if (num === 3) {
+        // Richtige Antwort
+        window.location.href = "level7.html";
+      } else {
+        // Falsche Antwort
+        document.getElementById("wrong").style.display = "block";
+        setTimeout(() => {
+          document.getElementById("wrong").style.display = "none";
+        }, 1200);
+      }
+    }
+  </script>
+
+</body>
+</html>
