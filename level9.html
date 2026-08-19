@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Level 9 – Koffer packen</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: #ffffff;
+      background: url("Meer.png") no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .overlay {
+      background: rgba(0, 0, 0, 0.55);
+      padding: 30px 40px;
+      border-radius: 16px;
+      max-width: 700px;
+      text-align: center;
+    }
+
+    .items {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 20px;
+      gap: 10px;
+    }
+
+    .item {
+      background-color: #4da6ff;
+      padding: 10px 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 18px;
+      transition: background-color 0.3s;
+    }
+
+    .item.selected {
+      background-color: #2f7fd1;
+    }
+
+    .item:hover {
+      background-color: #66b3ff;
+    }
+
+    #wrong {
+      display: none;
+      color: #ffb3b3;
+      margin-top: 10px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="overlay">
+    <h1>Level 9 – Koffer packen</h1>
+
+    <p>
+      Du bereitest dich auf deine Reise vor.<br>
+      Wähle die Dinge aus, die du für einen Strandurlaub wirklich brauchst.
+    </p>
+
+    <div class="items">
+      <div class="item" data-correct="true" onclick="toggle(this)">Sonnencreme</div>
+      <div class="item" data-correct="true" onclick="toggle(this)">Badehose</div>
+      <div class="item" data-correct="true" onclick="toggle(this)">Buch</div>
+      <div class="item" data-correct="false" onclick="toggle(this)">Winterjacke</div>
+      <div class="item" data-correct="false" onclick="toggle(this)">Schneestiefel</div>
+      <div class="item" data-correct="false" onclick="toggle(this)">Regenschirm</div>
+    </div>
+
+    <p style="margin-top:20px;">Wenn du fertig bist, klick auf den Button:</p>
+    <button onclick="check()">Weiter zur Reise</button>
+
+    <div id="wrong">Das ist noch nicht der richtige Koffer!</div>
+  </div>
+
+  <script>
+    function toggle(el) {
+      el.classList.toggle("selected");
+    }
+
+    function check() {
+      const items = document.querySelectorAll(".item");
+      let correctSelected = 0;
+      let wrongSelected = 0;
+
+      items.forEach(item => {
+        const isCorrect = item.getAttribute("data-correct") === "true";
+        const isSelected = item.classList.contains("selected");
+
+        if (isSelected && isCorrect) correctSelected++;
+        if (isSelected && !isCorrect) wrongSelected++;
+      });
+
+      if (correctSelected === 3 && wrongSelected === 0) {
+        window.location.href = "level10.html";
+      } else {
+        const wrong = document.getElementById("wrong");
+        wrong.style.display = "block";
+        setTimeout(() => wrong.style.display = "none", 1500);
+      }
+    }
+  </script>
+
+</body>
+</html>
