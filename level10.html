@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Level 10 – Deine Reise beginnt</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: #ffffff;
+      background: url("Meer.png") no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .overlay {
+      background: rgba(0, 0, 0, 0.55);
+      padding: 30px 40px;
+      border-radius: 16px;
+      max-width: 700px;
+      text-align: center;
+    }
+
+    .passes {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .pass {
+      background-color: #4da6ff;
+      padding: 10px 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 18px;
+      transition: background-color 0.3s;
+    }
+
+    .pass:hover {
+      background-color: #66b3ff;
+    }
+
+    #wrong {
+      display: none;
+      color: #ffb3b3;
+      margin-top: 10px;
+      font-size: 18px;
+    }
+
+    #flight {
+      display: none;
+      margin-top: 20px;
+      font-size: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="overlay">
+    <h1>Level 10 – Deine Reise beginnt</h1>
+
+    <p id="text">
+      Du stehst am Flughafen. Dein Koffer ist gepackt.<br>
+      Jetzt brauchst du nur noch das richtige Ticket…
+    </p>
+
+    <div class="passes" id="passes">
+      <div class="pass" onclick="choose(false)">Flug nach Oslo – Gate B12</div>
+      <div class="pass" onclick="choose(true)">Flug nach Kreta – Gate A3</div>
+      <div class="pass" onclick="choose(false)">Flug nach Berlin – Gate C7</div>
+    </div>
+
+    <div id="wrong">Das war nicht dein Flug!</div>
+
+    <div id="flight">
+      ✈️ Das Flugzeug hebt ab…<br><br>
+      Wolken ziehen vorbei, die Sonne wird heller.<br>
+      Nach einer Weile hörst du die Durchsage:<br><br>
+      <b>„Willkommen auf Kreta. Dein Urlaub beginnt jetzt.“</b><br><br>
+      <span style="font-size:18px;">
+        Und hier endet deine kleine Reise durch die Levels.
+      </span>
+    </div>
+  </div>
+
+  <script>
+    function choose(correct) {
+      const wrong = document.getElementById("wrong");
+      const flight = document.getElementById("flight");
+      const passes = document.getElementById("passes");
+      const text = document.getElementById("text");
+
+      if (correct) {
+        wrong.style.display = "none";
+        passes.style.display = "none";
+        text.innerHTML = "Du hast das richtige Ticket gewählt.<br>Du steigst ins Flugzeug…";
+        flight.style.display = "block";
+      } else {
+        wrong.style.display = "block";
+        setTimeout(() => wrong.style.display = "none", 1200);
+      }
+    }
+  </script>
+
+</body>
+</html>
