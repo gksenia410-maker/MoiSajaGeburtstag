@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Level 2 – Wimmelbild2</title>
+  <title>Level 2 – Wimmelbild</title>
   <style>
     body {
       margin: 0;
@@ -26,19 +26,21 @@
     img {
       width: 100%;
       border-radius: 12px;
+      pointer-events: none; /* <<< WICHTIG: Bild blockiert keine Klicks mehr */
     }
 
-    /* Klickbereich für die Katzennase */
     .target {
       position: absolute;
       width: 45px;
       height: 45px;
       cursor: pointer;
-      /* DEBUG: sichtbar machen → später entfernen
+
+      /* DEBUG: sichtbar machen
       background: rgba(255,0,0,0.3);
       */
-      left: 70%;   /* Position der Katzennase */
-      top: 63%;    /* Position der Katzennase */
+
+      left: 70%;
+      top: 63%;
     }
 
     #wrong {
@@ -70,7 +72,6 @@
   <div class="container">
     <img src="Level2.png" alt="Wimmelbild">
 
-    <!-- Klickbereich für die Katzennase -->
     <div class="target" onclick="correct()"></div>
   </div>
 
@@ -81,9 +82,8 @@
       window.location.href = "level3.html";
     }
 
-    // Klick überall sonst → Fehler
-    document.body.addEventListener("click", function(e) {
-      if (!e.target.classList.contains("target")) {
+    document.querySelector(".container").addEventListener("click", function(e) {
+      if (!e.target.closest(".target")) {
         const wrong = document.getElementById("wrong");
         wrong.style.display = "block";
         setTimeout(() => wrong.style.display = "none", 1200);
