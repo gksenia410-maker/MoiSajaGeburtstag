@@ -10,72 +10,28 @@
       color: #ffffff;
       background: #000;
       display: flex;
-      justify-content: center;
+      flex-direction: column; /* Nur das kommt dazu */
+      justify-content: flex-start;
       align-items: center;
       height: 100vh;
+      overflow: hidden; /* verhindert Scrollen */
+    }
+
+    #riddle {
+      font-size: 20px;
+      text-align: center;
+      max-width: 700px;
+      margin: 10px 0 15px 0;
+      line-height: 1.4;
     }
 
     .container {
       position: relative;
       width: 90vw;
       max-width: 900px;
+      flex-shrink: 0; /* verhindert Größenänderung */
     }
 
     img {
       width: 100%;
-      border-radius: 12px;
-
-      /* <<< WICHTIG: Bild passt jetzt in den Bildschirm */
-      max-height: 100vh;
-      object-fit: contain;
-    }
-
-    .target {
-      position: absolute;
-      width: 60px;
-      height: 60px;
-      cursor: pointer;
-
-      /* DEBUG: sichtbar machen
-      background: rgba(255,0,0,0.3);
-      */
-
-      left: 50%;
-      top: 50%;
-    }
-
-    #wrong {
-      display: none;
-      color: #ffb3b3;
-      font-size: 22px;
-      text-align: center;
-      margin-top: 20px;
-    }
-  </style>
-</head>
-<body>
-
-  <div class="container">
-    <img src="Level2.png" alt="Wimmelbild">
-
-    <div class="target" onclick="correct()"></div>
-  </div>
-
-  <div id="wrong">Das war nicht die Lösung!</div>
-
-  <script>
-    function correct() {
-      window.location.href = "level3.html";
-    }
-
-    document.body.addEventListener("click", function(e) {
-      if (!e.target.classList.contains("target")) {
-        const wrong = document.getElementById("wrong");
-        wrong.style.display = "block";
-        setTimeout(() => wrong.style.display = "none", 1200);
-      }
-    });
-  </script>
-
-</body>
-</html>
+      border-radius
