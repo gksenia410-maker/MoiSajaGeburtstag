@@ -13,7 +13,6 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
-      flex-direction: column; /* damit Text über dem Bild stehen kann */
     }
 
     .container {
@@ -27,19 +26,17 @@
       border-radius: 12px;
     }
 
-    /* Klickbereich für die Katzennase */
+    /* Klickbereich für die Muschel */
     .target {
       position: absolute;
       width: 60px;
       height: 60px;
       cursor: pointer;
-
       /* DEBUG: sichtbar machen → später entfernen
       background: rgba(255,0,0,0.3);
       */
-
-      left: 70%;   /* Position der Katzennase */
-      top: 63%;    /* Position der Katzennase */
+      left: 50%;   /* Position anpassen */
+      top: 50%;    /* Position anpassen */
     }
 
     #wrong {
@@ -49,33 +46,18 @@
       text-align: center;
       margin-top: 20px;
     }
-
-    #riddle {
-      font-size: 20px;
-      text-align: center;
-      max-width: 700px;
-      margin-bottom: 20px;
-      line-height: 1.4;
-    }
   </style>
 </head>
 <body>
 
-  <div id="riddle">
-    <b>Ich bin</b> klein, aber ich entdecke alles zuerst.<br>
-    <b>Ich habe</b> die Aufgabe, jede Bewegung in dieser Gasse zu prüfen.<br>
-    <b>Ich kann</b> die Abendluft so fein wahrnehmen, dass mir kein Duft entgeht.<br>
-    <b>Finde mich</b>, um weiter ins nächste Level zu spazieren.
-  </div>
-
   <div class="container">
     <img src="Level2.png" alt="Wimmelbild">
 
-    <!-- Klickbereich für die Katzennase -->
+    <!-- Klickbereich für die Muschel -->
     <div class="target" onclick="correct()"></div>
   </div>
 
-  <div id="wrong">Das war nicht die richtige Stelle!</div>
+  <div id="wrong">Das war nicht die Lösung!</div>
 
   <script>
     function correct() {
@@ -94,4 +76,3 @@
 
 </body>
 </html>
-
