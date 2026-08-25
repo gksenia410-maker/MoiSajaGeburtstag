@@ -10,14 +10,13 @@
       color: #ffffff;
       background: #000;
 
-      /* WICHTIG: damit Text über dem Bild sichtbar bleibt */
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
       align-items: center;
 
       height: 100vh;
-      overflow: hidden; /* verhindert Scrollen */
+      overflow: hidden;
     }
 
     #riddle {
@@ -32,16 +31,17 @@
       position: relative;
       width: 90vw;
       max-width: 900px;
-      flex-shrink: 0; /* verhindert Größenänderung */
+      flex-shrink: 0;
     }
 
     img {
       width: 100%;
       border-radius: 12px;
-
-      /* WICHTIG: Bild bleibt vollständig sichtbar */
       max-height: 100vh;
       object-fit: contain;
+
+      /* <<< WICHTIG: Bild blockiert keine Klicks mehr */
+      pointer-events: none;
     }
 
     .target {
@@ -50,12 +50,8 @@
       height: 60px;
       cursor: pointer;
 
-      /* DEBUG:
-      background: rgba(255,0,0,0.3);
-      */
-
-      left: 70%;   /* Katzennase */
-      top: 63%;
+      left: 62%;
+      top: 58%;
     }
 
     #wrong {
@@ -78,7 +74,6 @@
 
   <div class="container">
     <img src="Level2.png" alt="Wimmelbild">
-
     <div class="target" onclick="correct()"></div>
   </div>
 
