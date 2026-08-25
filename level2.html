@@ -24,19 +24,24 @@
     img {
       width: 100%;
       border-radius: 12px;
+
+      /* <<< WICHTIG: Bild passt jetzt in den Bildschirm */
+      max-height: 100vh;
+      object-fit: contain;
     }
 
-    /* Klickbereich für die Muschel */
     .target {
       position: absolute;
       width: 60px;
       height: 60px;
       cursor: pointer;
-      /* DEBUG: sichtbar machen → später entfernen
+
+      /* DEBUG: sichtbar machen
       background: rgba(255,0,0,0.3);
       */
-      left: 50%;   /* Position anpassen */
-      top: 50%;    /* Position anpassen */
+
+      left: 50%;
+      top: 50%;
     }
 
     #wrong {
@@ -53,7 +58,6 @@
   <div class="container">
     <img src="Level2.png" alt="Wimmelbild">
 
-    <!-- Klickbereich für die Muschel -->
     <div class="target" onclick="correct()"></div>
   </div>
 
@@ -64,7 +68,6 @@
       window.location.href = "level3.html";
     }
 
-    // Klick überall sonst → Fehler
     document.body.addEventListener("click", function(e) {
       if (!e.target.classList.contains("target")) {
         const wrong = document.getElementById("wrong");
