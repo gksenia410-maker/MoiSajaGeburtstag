@@ -9,14 +9,12 @@
       font-family: "Segoe UI", Arial, sans-serif;
       color: #ffffff;
       background: #000;
-
       display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
+      flex-direction: column;      /* NEU → Text sichtbar */
+      justify-content: flex-start; /* NEU → Bild bleibt oben */
       align-items: center;
-
       height: 100vh;
-      overflow: hidden;
+      overflow: hidden;            /* verhindert Scrollen */
     }
 
     #riddle {
@@ -25,9 +23,6 @@
       max-width: 700px;
       margin: 10px 0 15px 0;
       line-height: 1.4;
-
-      /* <<< WICHTIG: Text blockiert keine Klicks mehr */
-      pointer-events: none;
     }
 
     .container {
@@ -42,7 +37,6 @@
       border-radius: 12px;
       max-height: 100vh;
       object-fit: contain;
-      pointer-events: none; /* Bild blockiert ebenfalls keine Klicks */
     }
 
     .target {
@@ -50,9 +44,8 @@
       width: 60px;
       height: 60px;
       cursor: pointer;
-
-      left: 62%;
-      top: 58%;
+      left: 70%;
+      top: 63%;
     }
 
     #wrong {
