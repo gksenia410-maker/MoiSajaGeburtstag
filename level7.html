@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Level 7 – Die Flaschenpost</title>
+  <title>Level 7 – Die Spur im Sand</title>
   <style>
     body {
       margin: 0;
@@ -39,40 +39,108 @@
 <body>
 
   <div class="overlay">
-    <h1>Level 7 – Die Flaschenpost</h1>
+    <h1>Level 7 – Die Spur im Sand</h1>
 
     <p id="story">
       Du gehst am Strand entlang.  
-      Die Sonne steht tief, das Meer rauscht leise.  
-      Plötzlich siehst du etwas im Sand glitzern…  
-      Eine Flaschenpost.
+      Der Wind ist mild, die Wellen ruhig.  
+      Plötzlich bemerkst du eine einzelne, runde Spur im Sand.  
+      Sie wirkt ungewöhnlich – nicht wie eine normale Tierpfote.
+      <br><br>
+      Was willst du tun?
     </p>
 
-    <button onclick="choose('open')">Flaschenpost öffnen</button>
-    <button onclick="choose('leave')">Lieber liegen lassen</button>
+    <button onclick="choose('follow')">Der Spur folgen</button>
+    <button onclick="choose('inspect')">Spur untersuchen</button>
+    <button onclick="choose('wipe')">Spur wegwischen</button>
   </div>
 
   <script>
     function choose(option) {
       const story = document.getElementById("story");
 
-      if (option === "open") {
+      // -------------------------
+      // HAUPTWEG 1: SPUR FOLGEN
+      // -------------------------
+      if (option === "follow") {
         story.innerHTML = `
-          Du öffnest die Flasche vorsichtig.  
-          Darin liegt ein kleiner Zettel.  
-          Darauf steht nur ein einziges Wort…<br><br>
-          <b>„Weiter“</b><br><br>
-          Du spürst, dass du der Spur folgen musst.
+          Du folgst der Spur ein Stück den Strand entlang.<br>
+          Nach einigen Metern teilt sie sich plötzlich in zwei Richtungen:<br><br>
+          Eine Spur wirkt frisch und klar.<br>
+          Die andere ist älter und teilweise vom Wind verweht.<br><br>
+          Welche wählst du?<br><br>
+          <button onclick="choose('fresh')">Frische Spur</button>
+          <button onclick="choose('old')">Alte Spur</button>
         `;
-        setTimeout(() => {
-          window.location.href = "level8.html";
-        }, 3000);
       }
 
-      if (option === "leave") {
+      // Outcome B – Frische Spur → führt zu Outcome A
+      if (option === "fresh") {
         story.innerHTML = `
-          Du gehst weiter… aber irgendetwas fühlt sich falsch an.  
-          Die Flaschenpost ruft dich zurück.<br><br>
+          Du folgst der frischen Spur weiter.<br>
+          Zwischen zwei kleinen Steinen siehst du eine winzige Sandkrabbe.<br>
+          Sie hebt kurz eine Schere und verschwindet dann unter einem Stein.<br><br>
+          Neben dem Stein liegt ein kleines eingeritztes Symbol.<br><br>
+          <b>Du hast das Tier gefunden.</b><br><br>
+          Weiter geht es...
+        `;
+        setTimeout(() => window.location.href = "level8.html", 3000);
+      }
+
+      // Outcome B – Alte Spur → Soft-Fail
+      if (option === "old") {
+        story.innerHTML = `
+          Du folgst der alten Spur.<br>
+          Doch nach wenigen Metern verliert sie sich im Sand.<br><br>
+          Du kannst nicht mehr herausfinden, welches Tier sie hinterlassen hat.<br><br>
+          <i>Versuch es nochmal.</i>
+        `;
+      }
+
+      // -------------------------
+      // HAUPTWEG 2: SPUR UNTERSUCHEN
+      // -------------------------
+      if (option === "inspect") {
+        story.innerHTML = `
+          Du untersuchst die Spur genauer.<br>
+          Der Sand bricht leicht ein – darunter liegt ein kleiner Achat.<br>
+          Glatt, rund, wunderschön gemustert.<br><br>
+          Willst du der Spur doch folgen?<br><br>
+          <button onclick="choose('followFromC')">Ja, der Spur folgen</button>
+          <button onclick="choose('noFollow')">Nein</button>
+        `;
+      }
+
+      // Outcome C – Spur folgen → Outcome A
+      if (option === "followFromC") {
+        story.innerHTML = `
+          Du folgst der Spur weiter.<br>
+          Zwischen zwei kleinen Steinen siehst du eine winzige Sandkrabbe.<br>
+          Sie hebt kurz eine Schere und verschwindet dann unter einem Stein.<br><br>
+          Neben dem Stein liegt ein kleines eingeritztes Symbol.<br><br>
+          <b>Du hast das Tier gefunden.</b><br><br>
+          Weiter geht es...
+        `;
+        setTimeout(() => window.location.href = "level8.html", 3000);
+      }
+
+      // Outcome C – Nicht folgen → Soft-Fail
+      if (option === "noFollow") {
+        story.innerHTML = `
+          Du nimmst den Achat an dich, aber folgst der Spur nicht.<br><br>
+          Du wirst nie erfahren, welches Tier sie hinterlassen hat.<br><br>
+          <i>Versuch es nochmal.</i>
+        `;
+      }
+
+      // -------------------------
+      // HAUPTWEG 3: SPUR WEGWISCHEN
+      // -------------------------
+      if (option === "wipe") {
+        story.innerHTML = `
+          Du wischst die Spur weg.<br>
+          Eine Windböe kommt vom Meer und verweht den Sand weiter.<br><br>
+          Die Spur ist endgültig verschwunden.<br><br>
           <i>Versuch es nochmal.</i>
         `;
       }
