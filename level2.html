@@ -2,7 +2,6 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Level 2 – Wimmelbild</title>
   <style>
     body {
@@ -69,11 +68,7 @@
       window.location.href = "level3.html";
     }
 
-    // funktioniert auf Handy UND PC
-    document.body.addEventListener("click", handleClick);
-    document.body.addEventListener("touchstart", handleClick);
-
-    function handleClick(e) {
+    document.body.addEventListener("click", function(e) {
       if (!e.target.classList.contains("target")) {
         const wrong = document.getElementById("wrong");
         wrong.style.display = "block";
