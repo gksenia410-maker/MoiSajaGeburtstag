@@ -56,6 +56,13 @@
       margin-top: 20px;
       font-size: 20px;
     }
+
+    #ticketImage {
+      display: none;
+      margin-top: 20px;
+      max-width: 90%;
+      border-radius: 12px;
+    }
   </style>
 </head>
 <body>
@@ -76,14 +83,13 @@
 
     <div id="wrong">Das war nicht dein Flug!</div>
 
+    <img id="ticketImage" src="tickets.png" alt="Tickets">
+
     <div id="flight">
       ✈️ Das Flugzeug hebt ab…<br><br>
       Wolken ziehen vorbei, die Sonne wird heller.<br>
       Nach einer Weile hörst du die Durchsage:<br><br>
       <b>„Willkommen auf Kreta. Dein Urlaub beginnt jetzt.“</b><br><br>
-      <span style="font-size:18px;">
-        Und hier endet deine kleine Reise durch die Levels.
-      </span>
     </div>
   </div>
 
@@ -93,12 +99,20 @@
       const flight = document.getElementById("flight");
       const passes = document.getElementById("passes");
       const text = document.getElementById("text");
+      const ticketImage = document.getElementById("ticketImage");
 
       if (correct) {
         wrong.style.display = "none";
         passes.style.display = "none";
+
         text.innerHTML = "Du hast das richtige Ticket gewählt.<br>Du steigst ins Flugzeug…";
+
+        // Ticket-Bild anzeigen
+        ticketImage.style.display = "block";
+
+        // Flugtext anzeigen
         flight.style.display = "block";
+
       } else {
         wrong.style.display = "block";
         setTimeout(() => wrong.style.display = "none", 1200);
