@@ -69,7 +69,11 @@
       window.location.href = "level3.html";
     }
 
-    document.body.addEventListener("click", function(e) {
+    // funktioniert auf Handy UND PC
+    document.body.addEventListener("click", handleClick);
+    document.body.addEventListener("touchstart", handleClick);
+
+    function handleClick(e) {
       if (!e.target.classList.contains("target")) {
         const wrong = document.getElementById("wrong");
         wrong.style.display = "block";
