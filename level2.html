@@ -12,18 +12,20 @@
 
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
       align-items: center;
 
       height: 100vh;
       overflow: hidden;
     }
 
+    /* Fester Bereich für das Rätsel – verschiebt NICHT das Bild */
     #riddle {
       font-size: 20px;
       text-align: center;
       max-width: 700px;
-      margin: 10px 0 15px 0;
+      height: 120px;        /* <<< WICHTIG: feste Höhe */
+      flex-shrink: 0;       /* verhindert Verschieben */
+      margin-top: 10px;
       line-height: 1.4;
     }
 
@@ -31,17 +33,15 @@
       position: relative;
       width: 90vw;
       max-width: 900px;
-      flex-shrink: 0;
+      flex-shrink: 0;       /* verhindert Verschieben */
     }
 
     img {
       width: 100%;
       border-radius: 12px;
-      max-height: 100vh;
+      max-height: calc(100vh - 140px); /* Platz für Rätsel */
       object-fit: contain;
-
-      /* <<< WICHTIG: Bild blockiert keine Klicks mehr */
-      pointer-events: none;
+      pointer-events: none; /* Bild blockiert keine Klicks */
     }
 
     .target {
@@ -50,6 +50,7 @@
       height: 60px;
       cursor: pointer;
 
+      /* Position der Katzennase */
       left: 62%;
       top: 58%;
     }
