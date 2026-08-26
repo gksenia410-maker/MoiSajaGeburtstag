@@ -61,11 +61,13 @@
     <p>
       Um weiterzukommen, musst du den geheimen Code lösen.<br><br>
       <b>Hinweis:</b><br>
-      Welle = 3<br>
-      Muschel = 5<br>
-      Boot = 2<br><br>
+      🦐*🦐 = 4<br>
+      🦐*🌊 = 6<br>
+      🦐*🐬+🌊 = 13<br>
+      🦈*🐬 = 50<br>
+      🌊+🦈= 13<br><br>
       <b>Frage:</b><br>
-      Was ergibt <b>Welle + Boot</b>?
+      Was ergibt <b>🐬+🦐+🦈+🌊</b>?
     </p>
 
     <input id="code" placeholder="Code eingeben">
@@ -78,7 +80,7 @@
     function check() {
       const value = document.getElementById("code").value.trim();
 
-      if (value === "5") { // 3 + 2 = 5
+      if (value === "20") { // 3 + 2 = 5
         window.location.href = "level7.html";
       } else {
         document.getElementById("wrong").style.display = "block";
