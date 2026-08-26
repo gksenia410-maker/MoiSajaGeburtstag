@@ -54,17 +54,18 @@
     <p>In einem der folgenden Sätze steckt ein Fehler.  
        Finde ihn, um weiterzukommen!</p>
 
-    <div class="option" onclick="check(1)">Das Meer ist blau.</div>
-    <div class="option" onclick="check(2)">Der Sand ist warm.</div>
-    <div class="option" onclick="check(3)">Die Sonne geht im Norden auf.</div>
-    <div class="option" onclick="check(4)">Muscheln liegen am Strand.</div>
+    <div class="option" onclick="check(1)">Küstenlinien verändern sich im Laufe der Zeit.</div>
+    <div class="option" onclick="check(2)">Salzwasser hat eine höhere Dichte als Süßwasser.</div>
+    <div class="option" onclick="check(3)">Gezeiten entstehen durch die Gravitation von Mond und Sonne.</div>
+    <div class="option" onclick="check(4)">Die tiefste Stelle des Meeres liegt im Atlantik.</div>
+    <div class="option" onclick="check(5)">Korallen sind lebende Organismen.</div>
 
     <div id="wrong">Das war nicht der Fehler!</div>
   </div>
 
   <script>
     function check(num) {
-      if (num === 3) {
+      if (num === 4) {
         // Richtige Antwort
         window.location.href = "level5.html";
       } else {
