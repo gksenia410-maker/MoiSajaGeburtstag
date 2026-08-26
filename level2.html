@@ -10,31 +10,22 @@
       color: #ffffff;
       background: #000;
       display: flex;
-      flex-direction: column;      /* NEU → Text sichtbar */
-      justify-content: flex-start; /* NEU → Bild bleibt oben */
+      justify-content: center;
       align-items: center;
       height: 100vh;
-      overflow: hidden;            /* verhindert Scrollen */
-    }
-
-    #riddle {
-      font-size: 20px;
-      text-align: center;
-      max-width: 700px;
-      margin: 10px 0 15px 0;
-      line-height: 1.4;
     }
 
     .container {
       position: relative;
       width: 90vw;
       max-width: 900px;
-      flex-shrink: 0;
     }
 
     img {
       width: 100%;
       border-radius: 12px;
+
+      /* <<< WICHTIG: Bild passt jetzt in den Bildschirm */
       max-height: 100vh;
       object-fit: contain;
     }
@@ -44,8 +35,13 @@
       width: 60px;
       height: 60px;
       cursor: pointer;
-      left: 70%;
-      top: 63%;
+
+      /* DEBUG: sichtbar machen
+      background: rgba(255,0,0,0.3);
+      */
+
+      left: 50%;
+      top: 50%;
     }
 
     #wrong {
@@ -53,21 +49,15 @@
       color: #ffb3b3;
       font-size: 22px;
       text-align: center;
-      margin-top: 10px;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
 
-  <div id="riddle">
-    <b>Ich bin</b> klein, aber ich entdecke alles zuerst.<br>
-    <b>Ich habe</b> die Aufgabe, jede Bewegung in dieser Gasse zu prüfen.<br>
-    <b>Ich kann</b> die Abendluft so fein wahrnehmen, dass mir kein Duft entgeht.<br>
-    <b>Finde mich</b>, um weiter ins nächste Level zu spazieren.
-  </div>
-
   <div class="container">
     <img src="Level2.png" alt="Wimmelbild">
+
     <div class="target" onclick="correct()"></div>
   </div>
 
